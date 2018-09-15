@@ -1,5 +1,6 @@
 package ua.pp.ssenko.stories.web
 
+import getDetails
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
@@ -15,7 +16,10 @@ class UserRestController (
 
     @RequestMapping(value = ["/user"], method = [RequestMethod.GET])
     @ResponseBody
-    fun user(user: Principal) = userService.getOrCreateUser(user)
+    fun user(user: Principal): Map<String, Any> {
+        userService.createUserIfNotExists(user)
+        return user.getDetails()
+    }
 
 
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router'
+import {Event, Router, RouterEvent} from '@angular/router'
+import {AccountService} from './account/account.service'
 
 @Component({
   selector: 'app-root',
@@ -12,20 +12,24 @@ export class AppComponent implements OnInit {
     title = 'app';
 
     constructor(
-        private http: HttpClient,
-        private router: Router
+        private router: Router,
+        private accountService: AccountService
     ) {
     }
 
     ngOnInit(): void {
-        this.http.request('GET', '/api/user').subscribe((res: any) => {
-            console.log(res);
-            if (res.authenticated) {
-                this.router.navigate(['boards-page']);
+
+        this.router.events.subscribe( (e: Event) => {
+
+            if (!(e instanceof RouterEvent)) {
+                return;
             }
-        }, (error) => {
-            console.log(error);
-            this.router.navigate(['welcome-page']);
-        }, () => {});
+
+            const event: RouterEvent = e;
+            if (!this.accountService.isAuthentificated() && event.url != '/welcome-page' && event.url != '/') {
+                console.log('User not authenticated');
+                this.router.navigate(['/welcome-page']);
+            }
+        });
     }
 }

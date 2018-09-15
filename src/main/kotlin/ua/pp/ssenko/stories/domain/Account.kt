@@ -7,6 +7,7 @@ class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
+    @Column(unique = true)
     var email: String = ""
 
     constructor(email: String) {

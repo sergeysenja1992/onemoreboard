@@ -1,6 +1,9 @@
 package ua.pp.ssenko.stories.service
 
 import getEmail
+import log
+import lombok.extern.slf4j.Slf4j
+import org.springframework.data.jpa.repository.Lock
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -13,9 +16,12 @@ class UserService(
         val userRepository: UserRepository
 ) {
 
-    fun getOrCreateUser(principal: Principal): Account {
+    fun createUserIfNotExists(principal: Principal) {
         val user = userRepository.findByEmail(principal.getEmail())
-        return user ?: userRepository.save(Account(principal.getEmail()))
+        if (user == null) {
+            log.info("Create user with email {}", principal.getEmail());
+            userRepository.save(Account(principal.getEmail()))
+        }
     }
 
 }

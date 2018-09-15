@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router'
+import {AccountService} from '../account/account.service'
 
 @Component({
   selector: 'app-welcome-page',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomePageComponent implements OnInit {
 
-  constructor() { }
+  isAuthenticated = true;
+
+  constructor(
+      private router: Router,
+      private accountService: AccountService
+  ) { }
 
   ngOnInit() {
+    this.accountService.identify().subscribe(user => {
+        this.isAuthenticated = user;
+        if (this.isAuthenticated) {
+            console.log('User authenticated');
+            this.router.navigate(['/boards-page'])
+        }
+    });
   }
 
   singIn() {

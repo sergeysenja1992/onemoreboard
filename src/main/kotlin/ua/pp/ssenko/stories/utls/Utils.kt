@@ -8,6 +8,8 @@ val Any.log
 fun Principal.toOAuth2() = this as OAuth2Authentication
 
 fun Principal.getEmail() : String {
-        val details: Map<String, String> = toOAuth2().userAuthentication.details as Map<String, String>
-        return details.get("email")!!
+        val details: Map<String, Any> = getDetails()
+        return details["email"] as String
 }
+
+fun Principal.getDetails() = toOAuth2().userAuthentication.details as Map<String, Any>
