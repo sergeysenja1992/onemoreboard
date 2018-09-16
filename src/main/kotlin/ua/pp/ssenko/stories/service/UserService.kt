@@ -28,4 +28,5 @@ class UserService(
 
 interface UserRepository: CrudRepository<Account, Long> {
     fun findByEmail(email: String): Account?
+    fun getByEmail(email: String): Account
 }

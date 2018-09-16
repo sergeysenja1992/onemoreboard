@@ -47,7 +47,7 @@ class OAuthSecurityConfig(
                 .anyRequest().authenticated()
                 .and()
                 .logout()
-                .logoutRequestMatcher(AntPathRequestMatcher("/logout", "POST"))
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .permitAll()
                 .and()

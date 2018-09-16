@@ -8,25 +8,26 @@ import {MyNavComponent} from './my-nav/my-nav.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {
     MatButtonModule,
-    MatCardModule, MatGridListModule,
+    MatCardModule,
+    MatGridListModule,
     MatIconModule,
     MatListModule,
-    MatSidenavModule, MatTableModule,
+    MatSidenavModule,
+    MatTableModule,
     MatToolbarModule
 } from '@angular/material';
 
-import {ThirdPageComponent} from './third-page/third-page.component';
 import {WelcomePageComponent} from './welcome-page/welcome-page.component';
 import {BoardsPageComponent} from './boards-page/boards-page.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthExpiredInterceptor} from './interceptor/auth-expired.interceptor'
 import {AccountService} from './account/account.service'
+import {ContextService} from './context/context.service'
 
 const appRoutes: Routes = [
     { path: '', component: WelcomePageComponent},
     { path: 'welcome-page', component: WelcomePageComponent},
-    { path: 'boards-page', component: BoardsPageComponent},
-    { path: 'third-page', component: ThirdPageComponent}
+    { path: 'boards-page', component: BoardsPageComponent}
 ];
 
 @NgModule({
@@ -35,7 +36,6 @@ const appRoutes: Routes = [
         MyNavComponent,
         WelcomePageComponent,
         BoardsPageComponent,
-        ThirdPageComponent,
         BoardsPageComponent
     ],
     imports: [
@@ -55,6 +55,7 @@ const appRoutes: Routes = [
     ],
     providers: [
         AccountService,
+        ContextService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthExpiredInterceptor,

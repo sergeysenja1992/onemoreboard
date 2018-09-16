@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardsPageComponent implements OnInit {
 
+    displayedColumns: string[] = ['name', 'description'];
+    transactions: Transaction[] = [
+        {name: 'Beach ball', description: 4},
+        {name: 'Towel', description: 5},
+        {name: 'Frisbee', description: 2},
+        {name: 'Sunscreen', description: 4},
+        {name: 'Cooler', description: 25},
+        {name: 'Swim suit', description: 15},
+    ];
+
   constructor() { }
 
   ngOnInit() {
   }
+
+
 
 }
