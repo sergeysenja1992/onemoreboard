@@ -13,7 +13,7 @@ import java.security.Principal
 @Service
 @Transactional
 class UserService(
-        val userRepository: UserRepository
+        private val userRepository: UserRepository
 ) {
 
     fun createUserIfNotExists(principal: Principal) {

@@ -1,6 +1,7 @@
 const PROXY_CONFIG = [
     {
         context: [
+            "/logout",
             "/google/login",
             "/api"
         ],

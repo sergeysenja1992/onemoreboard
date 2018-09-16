@@ -13,7 +13,4 @@ class WebController {
     @RequestMapping(value = ["/"], method = [GET])
     fun index() = "index.html"
 
-    @RequestMapping(value = ["/logout"], method = [POST])
-    fun logout(session: HttpSession) = session.invalidate()
-
 }

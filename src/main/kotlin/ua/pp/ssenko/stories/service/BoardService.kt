@@ -10,9 +10,9 @@ import ua.pp.ssenko.stories.domain.BoardShare
 @Service
 @Transactional
 class BoardService(
-        val boardRepository: BoardRepository,
-        val boardShareRepository: BoardShareRepository,
-        val userRepository: UserRepository
+        private val boardRepository: BoardRepository,
+        private val boardShareRepository: BoardShareRepository,
+        private val userRepository: UserRepository
 ) {
 
 

@@ -8,11 +8,11 @@ import {MyNavComponent} from './my-nav/my-nav.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {
     MatButtonModule,
-    MatCardModule,
-    MatGridListModule,
-    MatIconModule,
+    MatCardModule, MatDialogModule, MatFormFieldModule,
+    MatGridListModule, MatHint,
+    MatIconModule, MatInputModule,
     MatListModule,
-    MatSidenavModule,
+    MatSidenavModule, MatSortModule,
     MatTableModule,
     MatToolbarModule
 } from '@angular/material';
@@ -23,6 +23,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthExpiredInterceptor} from './interceptor/auth-expired.interceptor'
 import {AccountService} from './account/account.service'
 import {ContextService} from './context/context.service'
+import { BoardCreateDialogComponent } from './boards-page/board-create-dialog/board-create-dialog.component'
+import {BoardsService} from './boards-page/boards.service'
 
 const appRoutes: Routes = [
     { path: '', component: WelcomePageComponent},
@@ -36,7 +38,11 @@ const appRoutes: Routes = [
         MyNavComponent,
         WelcomePageComponent,
         BoardsPageComponent,
-        BoardsPageComponent
+        BoardsPageComponent,
+        BoardCreateDialogComponent
+    ],
+    entryComponents: [
+        BoardCreateDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -51,10 +57,15 @@ const appRoutes: Routes = [
         MatCardModule,
         MatGridListModule,
         HttpClientModule,
+        MatSortModule,
+        MatDialogModule,
+        MatInputModule,
+        MatFormFieldModule,
         MatTableModule
     ],
     providers: [
         AccountService,
+        BoardsService,
         ContextService,
         {
             provide: HTTP_INTERCEPTORS,

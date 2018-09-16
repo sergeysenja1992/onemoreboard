@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatSort, MatTableDataSource, Sort} from '@angular/material'
+import {Board} from './board.model'
+import {BoardsService} from './boards.service'
+import {map} from 'rxjs-compat/operator/map'
+import {BoardCreateDialogComponent} from './board-create-dialog/board-create-dialog.component'
 
 @Component({
   selector: 'app-boards-page',
@@ -8,20 +13,49 @@ import { Component, OnInit } from '@angular/core';
 export class BoardsPageComponent implements OnInit {
 
     displayedColumns: string[] = ['name', 'description'];
-    transactions: Transaction[] = [
-        {name: 'Beach ball', description: 4},
-        {name: 'Towel', description: 5},
-        {name: 'Frisbee', description: 2},
-        {name: 'Sunscreen', description: 4},
-        {name: 'Cooler', description: 25},
-        {name: 'Swim suit', description: 15},
-    ];
+    boards: Board[] = [];
 
-  constructor() { }
+    constructor(
+        private boardService: BoardsService,
+        public dialog: MatDialog
+    ) {
+        this.load();
+    }
 
-  ngOnInit() {
-  }
+    private load() {
+        this.boardService.getBoards().subscribe((boards: any) => {
+            this.boards = boards.ownBoards;
+        });
+    }
 
+    openDialog(): void {
+        const dialogRef = this.dialog.open(BoardCreateDialogComponent);
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.load();
+        });
+    }
+
+    ngOnInit() {
+
+    }
+
+    sortData(sort: Sort) {
+        const data = this.boards.slice();
+        if (!sort.active || sort.direction === '') {
+            this.boards = data;
+            return;
+        }
+
+        this.boards = data.sort((a, b) => {
+            const isAsc = sort.direction === 'asc';
+            return this.compare(a[sort.active], b[sort.active], isAsc);
+        });
+    }
+
+    compare(a, b, isAsc) {
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
 
 
 }
