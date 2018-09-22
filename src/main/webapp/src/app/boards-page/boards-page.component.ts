@@ -24,6 +24,7 @@ export class BoardsPageComponent implements OnInit {
 
     private load() {
         this.boardService.getBoards().subscribe((boards: any) => {
+            console.log(boards);
             this.boards = boards.ownBoards;
         });
     }

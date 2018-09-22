@@ -11,6 +11,6 @@ data class BoardDto (
 }
 
 data class UserBoards (
-        val ownBoard: List<Board>,
-        val sharedBoard: List<Board>
+        val ownBoards: List<Board>,
+        val sharedBoards: List<Board>
 )
