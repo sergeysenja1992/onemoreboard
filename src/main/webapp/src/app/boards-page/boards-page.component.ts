@@ -24,7 +24,6 @@ export class BoardsPageComponent implements OnInit {
 
     private load() {
         this.boardService.getBoards().subscribe((boards: any) => {
-            console.log(boards);
             this.boards = boards.ownBoards;
         });
     }
@@ -33,7 +32,9 @@ export class BoardsPageComponent implements OnInit {
         const dialogRef = this.dialog.open(BoardCreateDialogComponent);
 
         dialogRef.afterClosed().subscribe(result => {
-            this.load();
+            if (result) {
+                this.load();
+            }
         });
     }
 

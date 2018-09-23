@@ -39,8 +39,13 @@ export class AccountService {
     logout() {
         this.user = null;
         this.contextService.emit('user', null);
-        this.http.post('/logout', {}).subscribe((res: any) =>
+        this.http.post('/logout', {}).subscribe((res: any) => {
             this.router.navigate(['/welcome-page'])
-        );
+        }, (error : any) => {
+            if (error.status == 403 || error.status == 302 ) {
+                this.router.navigate(['/welcome-page'])
+            }
+
+        });
     }
 }

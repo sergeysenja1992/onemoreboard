@@ -6,7 +6,8 @@
         
     },
     "BOARD_CREATE_DIALOG_COMPONENT_HTML": {
-        
+        "NAME": "Name",
+        "NAME_OF_BOARD_REQUIRED": "Name of board required"
     },
     "WELCOME_PAGE_COMPONENT_HTML": {
         "WELCOME_TO_STORIES_SYSTEM": "Welcome to stories system.",

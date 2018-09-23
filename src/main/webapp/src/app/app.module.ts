@@ -2,6 +2,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {Injector, NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MyNavComponent} from './my-nav/my-nav.component';
@@ -72,6 +74,8 @@ const appRoutes: Routes = [
         MatDialogModule,
         MatInputModule,
         MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatTableModule
     ],
     providers: [

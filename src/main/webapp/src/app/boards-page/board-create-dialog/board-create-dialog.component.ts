@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialogRef} from '@angular/material'
+import {Board} from '../board.model'
+import {NgForm} from '@angular/forms';
+import {BoardsService} from '../boards.service'
 
 @Component({
   selector: 'app-board-create-dialog',
@@ -8,15 +11,28 @@ import {MatDialogRef} from '@angular/material'
 })
 export class BoardCreateDialogComponent implements OnInit {
 
+    board = new Board()
+
+    @ViewChild('form') form: NgForm;
+
     ngOnInit() {
     }
 
     constructor(
-        public dialogRef: MatDialogRef<BoardCreateDialogComponent>
+        public dialogRef: MatDialogRef<BoardCreateDialogComponent>,
+        private boardsService: BoardsService
     ) {}
 
-    onNoClick(): void {
+    cancel(): void {
         this.dialogRef.close();
+    }
+
+    save() {
+        if (this.form.form.valid) {
+            this.boardsService.saveBoard(this.board).subscribe(it => {
+                this.dialogRef.close(true);
+            });
+        }
     }
 
 }

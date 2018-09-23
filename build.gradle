@@ -114,7 +114,11 @@ task translate {
 					json[fileName][key] = result[1]
 				}
 
-				list.forEach{ html = html.replace(it[0], """<ng-tr [key]="'${it[1]}'"></ng-tr>""") }
+				list.forEach{
+					if (!it[1].startWith(fileName + '.')) {
+						html = html.replace(it[0], """<ng-tr [key]="'${fileName}.${it[1]}'"></ng-tr>""")
+					}
+				}
 				file.write(html)
 			}
 		}

@@ -11,7 +11,7 @@ import java.security.Principal
 class BoardRestController (
         private val boardService: BoardService
 ) {
-    @PostMapping("/board")
+    @PostMapping("/boards")
     fun createBoard(@RequestBody board: BoardDto, principal: Principal) {
         boardService.addBoard(principal.getEmail(), board)
     }
