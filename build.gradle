@@ -106,7 +106,7 @@ task translate {
 
 				list.forEach{ html = html.replace(it[0], it[1]) }
 
-				//file.write(html)
+				file.write(html)
 			}
 		}
 
