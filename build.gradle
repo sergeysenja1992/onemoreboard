@@ -91,24 +91,35 @@ ext {
 task translate {
 	doLast {
 
+		def en = new File(project.projectDir.toString() + '/src/main/webapp/src/assets/i18n/en.json')
+		def json = new groovy.json.JsonSlurper().parseText(en.text)
+
 		def regexp = """<ng-tr\\s* \\[key\\]="'(.*)'">\\s*</ng-tr>"""
 
 		def dir = new File(project.projectDir.toString() + '/src/main/webapp/src/app')
 		dir.eachFileRecurse (FileType.FILES) { file ->
 			if (file.name.endsWith('.html')) {
+
+				def fileName = file.name.replaceAll('\\W', '_').replaceAll('\\s', '_').toUpperCase()
+				if (!json[fileName]) {
+					json[fileName] = [:]
+				}
+
 				def html = file.text
 				def list = []
 				html.findAll(regexp) { result ->
 					def key = result[1]
-					key = key.replaceAll('//W', '_').replaceAll('//s', '_').toUpperCase()
+					key = key.replaceAll('\\W', '_').replaceAll('\\s', '_').toUpperCase()
 					list << [result[0], key]
+					json[fileName][key] = result[1]
 				}
 
-				list.forEach{ html = html.replaceAll(it[0], """<ng-tr [key]="'${it[1]}'"></ng-tr>""") }
-
+				list.forEach{ html = html.replace(it[0], """<ng-tr [key]="'${it[1]}'"></ng-tr>""") }
 				file.write(html)
 			}
 		}
+
+		en.write(groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(json)))
 
 	}
 }

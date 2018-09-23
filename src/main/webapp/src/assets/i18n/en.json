@@ -1,0 +1,19 @@
+{
+    "APP_COMPONENT_HTML": {
+        
+    },
+    "BOARDS_PAGE_COMPONENT_HTML": {
+        
+    },
+    "BOARD_CREATE_DIALOG_COMPONENT_HTML": {
+        
+    },
+    "WELCOME_PAGE_COMPONENT_HTML": {
+        "TEST_TANS": "TEST_TANS",
+        "TEST_TANS_ASDF": "TEST_TANS_ASDF",
+        "TEST__________D": "TEST__________D"
+    },
+    "MY_NAV_COMPONENT_HTML": {
+        
+    }
+}
