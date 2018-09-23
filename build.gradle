@@ -110,14 +110,14 @@ task translate {
 				html.findAll(regexp) { result ->
 					def key = result[1]
 					key = key.trim().replaceAll('\\W', '_').replaceAll('\\s', '_').toUpperCase()
-					list << [result[0], key]
-					json[fileName][key] = result[1]
+					if (!result[1].startsWith(fileName)) {
+						list << [result[0], key]
+						json[fileName][key] = result[1]
+					}
 				}
 
 				list.forEach{
-					if (!it[1].startsWith(fileName)) {
 						html = html.replace(it[0], """<ng-tr [key]="'${fileName}.${it[1]}'"></ng-tr>""")
-					}
 				}
 				file.write(html)
 			}
