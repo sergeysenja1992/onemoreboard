@@ -115,7 +115,7 @@ task translate {
 				}
 
 				list.forEach{
-					if (!it[1].startWith(fileName + '.')) {
+					if (!it[1].startsWith(fileName)) {
 						html = html.replace(it[0], """<ng-tr [key]="'${fileName}.${it[1]}'"></ng-tr>""")
 					}
 				}
