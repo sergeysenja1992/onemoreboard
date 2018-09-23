@@ -1,3 +1,5 @@
+import groovy.io.FileType
+
 buildscript {
 	ext {
 		kotlinVersion = '1.2.51'
@@ -86,7 +88,22 @@ ext {
 	springCloudVersion = 'Finchley.SR1'
 }
 
+task translate {
+	doLast {
 
+		def list = []
+
+		def dir = new File(project.projectDir.toString() + '/src/main/webapp/src/app')
+		dir.eachFileRecurse (FileType.FILES) { file ->
+			if (file.name.endsWith('.html')) {
+				def html = file.text
+				html.findAll("""<ng-tr [key]="'(.*)'"></ng-tr>""")
+				file.write(html)
+			}
+		}
+
+	}
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-aop')
