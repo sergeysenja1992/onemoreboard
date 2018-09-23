@@ -91,7 +91,7 @@ ext {
 task translate {
 	doLast {
 
-		def regexp = """<ng-tr \\[key\\]="'(.*)'">\\s*</ng-tr>"""
+		def regexp = """<ng-tr\\s* \\[key\\]="'(.*)'">\\s*</ng-tr>"""
 
 		def dir = new File(project.projectDir.toString() + '/src/main/webapp/src/app')
 		dir.eachFileRecurse (FileType.FILES) { file ->
@@ -104,7 +104,7 @@ task translate {
 					list << [result[0], key]
 				}
 
-				list.forEach{ html = html.replace(it[0], it[1]) }
+				list.forEach{ html = html.replaceAll(it[0], """<ng-tr [key]="'${it[1]}'"></ng-tr>""") }
 
 				file.write(html)
 			}
