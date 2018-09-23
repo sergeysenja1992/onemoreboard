@@ -19,12 +19,15 @@ import {
 
 import {WelcomePageComponent} from './welcome-page/welcome-page.component';
 import {BoardsPageComponent} from './boards-page/boards-page.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {AuthExpiredInterceptor} from './interceptor/auth-expired.interceptor'
 import {AccountService} from './account/account.service'
 import {ContextService} from './context/context.service'
 import { BoardCreateDialogComponent } from './boards-page/board-create-dialog/board-create-dialog.component'
 import {BoardsService} from './boards-page/boards.service'
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core'
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { NgTrComponent } from './ng-tr/ng-tr.component'
 
 const appRoutes: Routes = [
     { path: '', component: WelcomePageComponent},
@@ -39,13 +42,21 @@ const appRoutes: Routes = [
         WelcomePageComponent,
         BoardsPageComponent,
         BoardsPageComponent,
-        BoardCreateDialogComponent
+        BoardCreateDialogComponent,
+        NgTrComponent
     ],
     entryComponents: [
         BoardCreateDialogComponent
     ],
     imports: [
         BrowserModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
         BrowserAnimationsModule,
         RouterModule.forRoot(appRoutes, {useHash: true}),
         LayoutModule,
@@ -79,3 +90,8 @@ const appRoutes: Routes = [
     bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
