@@ -109,7 +109,7 @@ task translate {
 				def list = []
 				html.findAll(regexp) { result ->
 					def key = result[1]
-					key = key.replaceAll('\\W', '_').replaceAll('\\s', '_').toUpperCase()
+					key = key.trim().replaceAll('\\W', '_').replaceAll('\\s', '_').toUpperCase()
 					list << [result[0], key]
 					json[fileName][key] = result[1]
 				}
