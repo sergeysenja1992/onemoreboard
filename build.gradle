@@ -97,8 +97,8 @@ task translate {
 		dir.eachFileRecurse (FileType.FILES) { file ->
 			if (file.name.endsWith('.html')) {
 				def html = file.text
-				html.findAll("""<ng-tr [key]="'(.*)'"></ng-tr>""")
-				file.write(html)
+				println html.findAll("""<ng-tr [key]="'(.*)'"></ng-tr>""")
+				//file.write(html)
 			}
 		}
 
