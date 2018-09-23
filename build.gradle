@@ -91,13 +91,21 @@ ext {
 task translate {
 	doLast {
 
-		def list = []
+		def regexp = """<ng-tr \\[key\\]="'(.*)'">\\s*</ng-tr>"""
 
 		def dir = new File(project.projectDir.toString() + '/src/main/webapp/src/app')
 		dir.eachFileRecurse (FileType.FILES) { file ->
 			if (file.name.endsWith('.html')) {
 				def html = file.text
-				println html.findAll("""<ng-tr [key]="'(.*)'"></ng-tr>""")
+				def list = []
+				html.findAll(regexp) { result ->
+					def key = result[1]
+					key = key.replaceAll('//W', '_').replaceAll('//s', '_').toUpperCase()
+					list << [result[0], key]
+				}
+
+				list.forEach{ html = html.replace(it[0], it[1]) }
+
 				//file.write(html)
 			}
 		}
