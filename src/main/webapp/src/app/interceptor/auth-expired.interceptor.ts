@@ -6,6 +6,7 @@ import {Injector} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AccountService} from '../account/account.service'
 import {catchError, tap} from 'rxjs/internal/operators'
+import {Router} from '@angular/router'
 
 
 export class AuthExpiredInterceptor implements HttpInterceptor {
@@ -26,7 +27,8 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
 
                 if (error.status == 401) {
                     const accountService: AccountService = this.injector.get(AccountService);
-                    accountService.logout();
+                    accountService.resetUser();
+                    this.injector.get(Router).navigate(['/welcome-page'])
                 }
 
             })

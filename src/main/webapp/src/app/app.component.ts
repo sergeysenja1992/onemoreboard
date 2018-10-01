@@ -25,17 +25,5 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.router.events.subscribe( (e: Event) => {
-
-            if (!(e instanceof RouterEvent)) {
-                return;
-            }
-
-            const event: RouterEvent = e;
-            if (!this.accountService.isAuthentificated() && event.url != '/welcome-page' && event.url != '/') {
-                console.log('User not authenticated');
-                this.router.navigate(['/welcome-page']);
-            }
-        });
     }
 }

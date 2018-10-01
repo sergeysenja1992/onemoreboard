@@ -23,6 +23,7 @@ export class WelcomePageComponent implements OnInit {
             console.log('User authenticated');
             this.router.navigate(['/boards-page'])
         }
+        console.log(this.isAuthenticated);
     });
   }
 

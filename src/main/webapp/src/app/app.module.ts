@@ -29,12 +29,19 @@ import { BoardCreateDialogComponent } from './boards-page/board-create-dialog/bo
 import {BoardsService} from './boards-page/boards.service'
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core'
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import { NgTrComponent } from './ng-tr/ng-tr.component'
+import { NgTrComponent } from './ng-tr/ng-tr.component';
+import { BoardComponent } from './board/board.component'
+import {AngularDraggableModule} from 'angular2-draggable';
+import { GoalComponent } from './board/goal/goal.component';
+import { StepComponent } from './board/step/step.component';
+import { StoryComponent } from './board/story/story.component';
+import { ReleaseComponent } from './board/release/release.component'
 
 const appRoutes: Routes = [
     { path: '', component: WelcomePageComponent},
     { path: 'welcome-page', component: WelcomePageComponent},
-    { path: 'boards-page', component: BoardsPageComponent}
+    { path: 'boards-page', component: BoardsPageComponent},
+    { path: 'board', component: BoardComponent}
 ];
 
 @NgModule({
@@ -45,7 +52,12 @@ const appRoutes: Routes = [
         BoardsPageComponent,
         BoardsPageComponent,
         BoardCreateDialogComponent,
-        NgTrComponent
+        NgTrComponent,
+        BoardComponent,
+        GoalComponent,
+        StepComponent,
+        StoryComponent,
+        ReleaseComponent
     ],
     entryComponents: [
         BoardCreateDialogComponent
@@ -76,7 +88,8 @@ const appRoutes: Routes = [
         MatFormFieldModule,
         FormsModule,
         ReactiveFormsModule,
-        MatTableModule
+        MatTableModule,
+        AngularDraggableModule
     ],
     providers: [
         AccountService,
